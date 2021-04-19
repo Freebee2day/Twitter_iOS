@@ -10,20 +10,29 @@ import UIKit
 import Alamofire
 
 class LoginViewController: UIViewController {
+    
+    
 
     @IBAction func loginButton(_ sender: Any) {
-        
-        
         
         let ApiReferenceURL = "https://api.twitter.com/oauth/request_token"
 
         TwitterAPICaller.client?.login(url: ApiReferenceURL, success: {
-            print("login success")
-            //self.performSegue(withIdentifier: "LoginToHome", sender: self)
+            
+            UserDefaults.standard.set(true, forKey: "userLoggedin")
+            self.performSegue(withIdentifier: "LoginToHome", sender: self)
         }, failure: { (Error) in
             print(Error.localizedDescription)
         })
 
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //if user already logged in, go straight to home page
+        if UserDefaults.standard.bool(forKey: "userLoggedin"){
+            self.performSegue(withIdentifier: "LoginToHome", sender: self)
+        }
     }
     
     

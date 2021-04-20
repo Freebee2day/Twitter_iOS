@@ -75,15 +75,20 @@ class HomeTableViewController: UITableViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.myTweetFetchingFxn()
+        
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myTweetFetchingFxn()
-        
         //for pull to refresh
         myRefreshControl.addTarget(self, action: #selector(myTweetFetchingFxn), for: .valueChanged)
         tableView.refreshControl = myRefreshControl
+        
         
         
         //tableView.rowHeight = 300
@@ -123,6 +128,13 @@ class HomeTableViewController: UITableViewController {
         let tweetImgURL = URL(string: tweetImgString)!
         myCell.imgTweet.af_setImage(withURL: tweetImgURL)
         
+        let tweetLiked = tweetCollection[indexPath.row]["favorited"] as! Bool
+        myCell.SetFavor(tweetLiked)
+        
+        let tweetShared = tweetCollection[indexPath.row]["retweeted"] as! Bool
+        myCell.setRetweet(tweetShared)
+        
+        myCell.selectedTweetID = tweetCollection[indexPath.row]["id"] as! Int
         
         return myCell
     }

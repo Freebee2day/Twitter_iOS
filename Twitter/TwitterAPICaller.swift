@@ -10,7 +10,7 @@ import UIKit
 import BDBOAuth1Manager
 
 class TwitterAPICaller: BDBOAuth1SessionManager {    
-    static let client = TwitterAPICaller(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "H9pDfNOhB4XIXyDGjYcAtUkFb", consumerSecret: "u3euS8yGZGTOioobBanVXrJkHnvKrwrnKIlFDmNSUwlijGJa1Q")
+    static let client = TwitterAPICaller(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "wUFS5hpbbbxCuGf7QU67cvMbz", consumerSecret: "nShTRzyFeWCVmF4etaVPwbGh6D5KXlS2zzSPRRDYPn4eTQp8LZ")
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error) -> ())?
     
@@ -63,5 +63,45 @@ class TwitterAPICaller: BDBOAuth1SessionManager {
             failure(error)
         })
     }
+    
+    
+    func postMyTweet(tweetString:String, success: @escaping () -> (), failure: @escaping (Error) -> ()){
+        let myURL = "https://api.twitter.com/1.1/statuses/update.json"
+        TwitterAPICaller.client?.post(myURL, parameters: ["status": tweetString], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+    
+    
+    func LikeTweet(tweetID:Int, success: @escaping () -> (), failure: @escaping (Error) -> ()){
+        let myURL = "https://api.twitter.com/1.1/favorites/create.json"
+        TwitterAPICaller.client?.post(myURL, parameters: ["id": tweetID], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+    
+    func UnlikeTweet(tweetID:Int, success: @escaping () -> (), failure: @escaping (Error) -> ()){
+        let myURL = "https://api.twitter.com/1.1/favorites/destroy.json"
+        TwitterAPICaller.client?.post(myURL, parameters: ["id": tweetID], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+    
+    
+    func myRetweetFxn(tweetID:Int, success: @escaping () -> (), failure: @escaping (Error) -> ()){
+        let myURL = "https://api.twitter.com/1.1/statuses/retweet/\(tweetID).json"
+        TwitterAPICaller.client?.post(myURL, parameters: ["id": tweetID], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+    
     
 }

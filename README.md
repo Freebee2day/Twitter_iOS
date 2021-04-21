@@ -51,5 +51,9 @@ The following **bonus** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+<img src='https://github.com/Freebee2day/Twitter_iOS/blob/main/iOS_Twitter_PartI.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Another Walkthrough:
+
 <img src='https://github.com/Freebee2day/Twitter_iOS/blob/main/Twitter_iOS_I.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
